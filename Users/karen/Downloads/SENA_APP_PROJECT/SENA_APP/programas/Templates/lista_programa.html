@@ -1,0 +1,82 @@
+{% extends "master.html" %}
+
+{% block title %}Lista de programa SENA - SENA APP{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Lista de Programa SENA</h2>
+            <hr>
+            <br>
+        </div>
+    </div>
+</div>
+
+{% if lista_programa %}
+<div class="row">
+    <div class="col-12">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Nivel formacion</th>
+                        <th>Modalidad</th>
+                        <th>Duracion meses</th>
+                        <th>Duracion horas</th>
+                        <th>Descripcion</th>
+                        <th>Competencias</th>
+                        <th>Perfil egreso</th>
+                        <th>Requisitos ingreso</th>
+                        <th>Centro formacion</th>
+                        <th>Regional</th>
+                        <th>Estado</th>
+                        <th>Fecha Creacion</th>
+                        <th>Fecha Registro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for programa in lista_programa %}
+                    <tr>
+                        <td><strong><a href ="{% url 'programa:detalle_programa' programa.id %}">{{ programa.codigo}}</a></strong></td>
+
+                        <td>{{ programa.nombre }}</td>
+                        <td>{{ programa.nivel_formacion}}</td>
+                        <td>{{ programa.modalidad }}</td>
+                        <td>{{ programa.duracion_meses }}</td>
+                        <td>{{ programa.duracion_horas }}</td>
+                        <td>{{ programa.descripcion }}</td>
+                        <td>{{ programa.competencias }}</td>
+                        <td>{{ programa.perfil_egreso }}</td>
+                        <td>{{ programa.requisitos_ingreso }}</td>
+                        <td>{{ programa.centro_formacion }}</td>
+                        <td>{{ programa.regional }}</td>
+                        <td>{{ programa.estado }}</td>
+                        <td>{{ programa.fecha_creacion|date:"d/m/Y" }}</td>
+                        <td>{{ programa.fecha_registro|date:"d/m/Y" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">No hay programas registrados</h4>
+            <p>Aún no se han registrado programas en el sistema.</p>
+            <hr>
+            <p class="mb-0">
+                <a href="{% url 'admin:programa_programa_add' %}" class="btn btn-success">
+                    Registrar Primer programa
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
