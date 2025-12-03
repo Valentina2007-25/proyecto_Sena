@@ -8,7 +8,7 @@ body {
 }
 
 .jumbotron {
-    background: linear-gradient(135deg, #28a745, #20c997);
+    background: linear-gradient(135deg, #7a8420, #c92072);
 }
 
 .card {
@@ -75,7 +75,7 @@ footer {
     color: white;
 }
 .badge-sena {
-    background: linear-gradient(135deg, #28a745, #20c997);
+    background: linear-gradient(135deg, #50c2db, #7e42df);
 }
 .instructor-avatar {
     width: 120px;

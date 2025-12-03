@@ -7,6 +7,8 @@
     <div class="col-12">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>Lista de Aprendices SENA</h2>
+            <hr>
+            <br>
         </div>
     </div>
 </div>
@@ -19,23 +21,22 @@
                 <thead class="table-dark">
                     <tr>
                         <th>Documento</th>
-                        <th>Nombre Completo</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
                         <th>Correo</th>
                         <th>Teléfono</th>
                         <th>Ciudad</th>
                         <th>Programa</th>
                         <th>Fecha Nacimiento</th>
-                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for aprendiz in lista_aprendices %}
                     <tr>
-                        <td><strong><a href ="aprendiz/{{ aprendiz.id }}">{{ aprendiz.documento_identidad }}</a></strong></td>
-                        <td>{{ aprendiz.nombre_completo }}</td>
-                        <td>
-                            <a href="mailto:{{ aprendiz.correo }}">{{ aprendiz.correo }}</a>
-                        </td>
+                        <td><strong><a href ="{% url 'aprendices:detalle_aprendiz' aprendiz.id %}">{{ aprendiz.documento_identidad}}</a></strong></td>
+                        <td>{{ aprendiz.nombre }}</td>
+                        <td>{{ aprendiz.apellido }}</td>
+                            <td>{{ aprendiz.correo }}</td>
                         <td>{{ aprendiz.telefono }}</td>
                         <td>{{ aprendiz.ciudad }}</td>
                         <td>

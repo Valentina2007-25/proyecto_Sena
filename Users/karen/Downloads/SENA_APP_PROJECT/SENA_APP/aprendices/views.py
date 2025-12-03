@@ -1,23 +1,27 @@
 from django.shortcuts import render
+from django.template import loader
 from django.http import HttpResponse
 from .models import Aprendiz
 
-# Página de inicio
-def inicio(request):
-    return render(request, "main.html")
+# Create your views here.
+def home(request):
+  total_aprendices = Aprendiz.objects.count()
+  return render(request, 'main.html', {'total_aprendices': total_aprendices})
 
-# Lista de aprendices
 def aprendices(request):
-    lista_aprendices = Aprendiz.objects.all()
+    lista_aprendices = Aprendiz.objects.all().values()
+    template = loader.get_template('lista_aprendices.html')
+    
     context = {
-        "lista_aprendices": lista_aprendices
+        'lista_aprendices': lista_aprendices,
     }
-    return render(request, "lista_aprendices.html", context)
+    return HttpResponse(template.render(context, request))
 
-# Detalle de un aprendiz por ID
 def detalle_aprendiz(request, id_aprendiz):
-    aprendiz = Aprendiz.objects.get(id=id_aprendiz)
-    context = {
-        "aprendiz": aprendiz
-    }
-    return render(request, "detalle_aprendiz.html", context)
+  aprendiz = Aprendiz.objects.get(id=id_aprendiz)
+  template = loader.get_template('detalle_aprendiz.html')
+  context = {
+    'aprendiz': aprendiz,
+  }
+  return HttpResponse(template.render(context, request))
+
