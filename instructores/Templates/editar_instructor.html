@@ -1,0 +1,112 @@
+{% extends 'master.html' %}
+
+{% block title %}Editar Instructor - SENA APP{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-warning text-dark">
+                <h3 class="card-title mb-0">
+                    <i class="bi bi-pencil-square"></i> Editar Instructor
+                </h3>
+            </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <strong>Por favor corrija los siguientes errores:</strong>
+                        {{ form.errors }}
+                    </div>
+                    {% endif %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.tipo_documento.label }}</label>
+                            {{ form.tipo_documento }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.documento_identidad.label }} <span class="text-danger">*</span></label>
+                            {{ form.documento_identidad }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.nombre.label }} <span class="text-danger">*</span></label>
+                            {{ form.nombre }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.apellido.label }} <span class="text-danger">*</span></label>
+                            {{ form.apellido }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.telefono.label }}</label>
+                            {{ form.telefono }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.correo.label }}</label>
+                            {{ form.correo }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.ciudad.label }}</label>
+                            {{ form.ciudad }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.fecha_nacimiento.label }} <span class="text-danger">*</span></label>
+                            {{ form.fecha_nacimiento }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.nivel_educacion.label }}</label>
+                            {{ form.nivel_educacion }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.especialidad.label }} <span class="text-danger">*</span></label>
+                            {{ form.especialidad }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">{{ form.anos_experiencia.label }}</label>
+                            {{ form.anos_experiencia }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">{{ form.fecha_vinculacion.label }}</label>
+                            {{ form.fecha_vinculacion }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="form-check mt-4">
+                                {{ form.activo }}
+                                <label class="form-check-label" for="{{ form.activo.id_for_label }}">
+                                    {{ form.activo.label }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'instructores:lista_instructores' %}" class="btn btn-secondary me-md-2">
+                            <i class="bi bi-x-circle"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-warning text-dark">
+                            <i class="bi bi-save"></i> Actualizar Instructor
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

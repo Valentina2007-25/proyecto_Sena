@@ -1,0 +1,109 @@
+{% extends 'master.html' %}
+
+{% block title %}Editar Aprendiz - SENA APP{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-warning text-dark">
+                <h3 class="card-title mb-0">
+                    <i class="bi bi-pencil-square"></i> Editar Aprendiz
+                </h3>
+            </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <strong>Por favor corrija los siguientes errores:</strong>
+                        {{ form.errors }}
+                    </div>
+                    {% endif %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.documento_identidad.label }} <span class="text-danger">*</span></label>
+                            {{ form.documento_identidad }}
+                            {% if form.documento_identidad.errors %}
+                                <div class="text-danger">{{ form.documento_identidad.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.nombre.label }} <span class="text-danger">*</span></label>
+                            {{ form.nombre }}
+                            {% if form.nombre.errors %}
+                                <div class="text-danger">{{ form.nombre.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.apellido.label }} <span class="text-danger">*</span></label>
+                            {{ form.apellido }}
+                            {% if form.apellido.errors %}
+                                <div class="text-danger">{{ form.apellido.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.telefono.label }}</label>
+                            {{ form.telefono }}
+                            {% if form.telefono.errors %}
+                                <div class="text-danger">{{ form.telefono.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.correo.label }}</label>
+                            {{ form.correo }}
+                            {% if form.correo.errors %}
+                                <div class="text-danger">{{ form.correo.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.fecha_nacimiento.label }} <span class="text-danger">*</span></label>
+                            {{ form.fecha_nacimiento }}
+                            {% if form.fecha_nacimiento.errors %}
+                                <div class="text-danger">{{ form.fecha_nacimiento.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">{{ form.ciudad.label }}</label>
+                            {{ form.ciudad }}
+                            {% if form.ciudad.errors %}
+                                <div class="text-danger">{{ form.ciudad.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'aprendices:lista_aprendices' %}" class="btn btn-secondary me-md-2">
+                            <i class="bi bi-x-circle"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-warning text-dark">
+                            <i class="bi bi-save"></i> Actualizar Aprendiz
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="mt-3">
+            <small class="text-muted">
+                <i class="bi bi-info-circle"></i> 
+                Los campos marcados con <span class="text-danger">*</span> son obligatorios.
+            </small>
+        </div>
+    </div>
+</div>
+{% endblock %}

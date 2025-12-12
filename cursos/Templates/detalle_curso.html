@@ -1,0 +1,93 @@
+{% extends "master.html" %}
+
+{% block title %}Detalles del Curso - SENA APP{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Breadcrumb -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/" class="back-link">Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'cursos:lista_cursos' %}" class="back-link">Lista de Cursos</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ curso.nombre }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Información Principal del Curso -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header">
+            <h4><i class="bi bi-journal-text me-2"></i>Información del Curso</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <p><strong>Código:</strong> {{ curso.codigo }}</p>
+                    <p><strong>Nombre:</strong> {{ curso.nombre }}</p>
+                    <p><strong>Programa de Formación:</strong> <a href="{% url 'programa:detalle_programa' curso.programa.id %}">{{ curso.programa.nombre }}</a></p>
+                    <p><strong>Coordinador:</strong> {{ curso.instructor_coordinador.nombre }} {{ curso.instructor_coordinador.apellido }}</p>
+                    <p><strong>Estado:</strong> {{ curso.get_estado_display }}</p>
+                </div>
+                <div class="col-md-4">
+                    <p><strong>Fecha de Inicio:</strong> {{ curso.fecha_inicio|date:"d/m/Y" }}</p>
+                    <p><strong>Fecha de Finalización:</strong> {{ curso.fecha_fin|date:"d/m/Y" }}</p>
+                    <p><strong>Horario:</strong> {{ curso.horario }}</p>
+                    <p><strong>Aula/Ambiente:</strong> {{ curso.aula }}</p>
+                </div>
+            </div>
+             <p><strong>Observaciones:</strong> {{ curso.observaciones|default:"Ninguna." }}</p>
+        </div>
+    </div>
+
+    <!-- Instructores y Aprendices -->
+    <div class="row">
+        <!-- Lista de Instructores -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5><i class="bi bi-person-video3 me-2"></i>Instructores Asignados</h5>
+                </div>
+                <div class="card-body">
+                    {% if instructores_curso %}
+                        <ul class="list-group list-group-flush">
+                        {% for ic in instructores_curso %}
+                            <li class="list-group-item">
+                                {{ ic.instructor.nombre }} {{ ic.instructor.apellido }} ({{ ic.rol }})
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No hay instructores asignados a este curso.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de Aprendices -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5><i class="bi bi-people-fill me-2"></i>Aprendices Inscritos ({{ aprendices_curso.count }}/{{ curso.cupos_maximos }})</h5>
+                </div>
+                <div class="card-body">
+                     {% if aprendices_curso %}
+                        <ul class="list-group list-group-flush">
+                        {% for ac in aprendices_curso %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="#">{{ ac.aprendiz.nombre }} {{ ac.aprendiz.apellido }}</a>
+                                <span class="badge bg-primary rounded-pill">{{ ac.get_estado_display }}</span>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No hay aprendices inscritos en este curso.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
